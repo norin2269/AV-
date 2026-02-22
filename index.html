@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AV出演料リアル査定システム - もしAVに出たら価値はいくら？">
-    <title>🔞 AV Market Value Assessment | 出演料査定システム</title>
+    <meta name="description" content="完全フィクションのエンタメ診断ゲーム。もしも仮想の世界にいたら？をテーマにした架空の市場価値シミュレーション。実在の業界とは一切関係ありません。">
+    <title>🎭 エンタメ市場価値診断 | もしも診断ゲーム【完全フィクション】</title>
     <style>
         :root {
             --bg-primary: #0a0612;
@@ -77,9 +77,9 @@
 
         .header h1 {
             font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 300;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: var(--accent-gold);
             margin-bottom: 8px;
             text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
@@ -88,8 +88,44 @@
         .header .subtitle {
             font-size: 12px;
             color: var(--text-secondary);
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .fiction-badge {
+            display: inline-block;
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            font-size: 10px;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .fiction-notice {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.12), rgba(255, 152, 0, 0.12));
+            border: 2px solid rgba(255, 193, 7, 0.4);
+            padding: 20px;
+            margin: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .fiction-notice h3 {
+            color: #ffc107;
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .fiction-notice p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 6px 0;
         }
 
         .form-content {
@@ -446,7 +482,7 @@
         }
 
         .result-nickname::after {
-            content: ' さんの査定結果';
+            content: ' さんの架空診断結果';
         }
 
         .result-label {
@@ -513,13 +549,123 @@
             color: var(--accent-rose);
         }
 
+        .affiliate-disclosure {
+            background: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            padding: 18px;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-size: 11px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            text-align: center;
+        }
+
         .disclaimer {
-            padding: 20px 30px;
+            padding: 25px 30px;
             background: rgba(255, 193, 7, 0.05);
             border-top: 1px solid rgba(255, 193, 7, 0.2);
             font-size: 11px;
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.8;
+        }
+
+        .disclaimer h4 {
+            color: #ffc107;
+            font-size: 13px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .disclaimer p {
+            margin: 8px 0;
+        }
+
+        .footer-links {
+            text-align: center;
+            padding: 15px;
+            background: var(--bg-primary);
+            font-size: 11px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* 年齢確認モーダル */
+        .age-gate-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .age-gate-box {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .age-gate-title {
+            color: var(--accent-gold);
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .age-gate-text {
+            color: var(--text-primary);
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .age-gate-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .age-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .age-btn-yes {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .age-btn-yes:hover {
+            transform: scale(1.05);
+        }
+
+        .age-btn-no {
+            background: #6c757d;
+            color: #fff;
         }
 
         @media (max-width: 768px) {
@@ -533,7 +679,12 @@
             }
             
             .header h1 {
-                font-size: 24px;
+                font-size: 22px;
+            }
+
+            .fiction-notice {
+                margin: 15px 20px;
+                padding: 15px;
             }
             
             .form-content {
@@ -564,32 +715,73 @@
             .progress-bar {
                 width: 250px;
             }
+
+            .age-gate-box {
+                padding: 30px 20px;
+            }
+
+            .age-gate-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 年齢確認モーダル（18歳以上・高校生不可） -->
+    <div id="ageGate" class="age-gate-overlay" style="display:none;">
+        <div class="age-gate-box">
+            <h2 class="age-gate-title">⚠️ 年齢確認</h2>
+            <div class="age-gate-text">
+                <p>このサイトは<strong>18歳以上かつ高校在学中ではない方</strong>を対象とした、</p>
+                <p><strong>完全フィクションのエンタメ診断ゲーム</strong>です。</p>
+                <p>実在の業界・人物・団体とは一切関係がありません。</p>
+                <br>
+                <p><strong>あなたは18歳以上で、高校を卒業していますか？</strong></p>
+            </div>
+            <div class="age-gate-buttons">
+                <button class="age-btn age-btn-yes" onclick="confirmAge(true)">
+                    はい（18歳以上・高校卒業済み）
+                </button>
+                <button class="age-btn age-btn-no" onclick="confirmAge(false)">
+                    いいえ
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <header class="header">
-            <h1>AV Market Value Assessment</h1>
-            <div class="subtitle">出演料査定システム Professional Edition</div>
+            <h1>🎭 エンタメ市場価値診断</h1>
+            <div class="subtitle">もしも仮想の世界にいたら？</div>
+            <div class="fiction-badge">完全フィクション・診断ゲーム</div>
         </header>
+
+        <div class="fiction-notice">
+            <h3>⚠️ 重要：このサイトは完全なフィクションです</h3>
+            <p>このツールは「もしも架空の世界にいたら？」というテーマの<strong>エンターテインメント診断ゲーム</strong>です。</p>
+            <p><strong>実在する業界・職業・人物・団体とは一切関係がありません。</strong></p>
+            <p>表示される金額は、実際のデータに基づかない完全な創作・ジョークです。</p>
+            <p>人間の価値は決して金額で測れるものではありません。</p>
+        </div>
 
         <div class="form-content" id="formContent">
             
             <div class="nickname-section">
-                <div class="nickname-label">Your Stage Name</div>
+                <div class="nickname-label">Your Fantasy Name</div>
                 <input type="text" 
                        id="nickname" 
                        class="nickname-input" 
                        placeholder="例: さくら、あいり、まお..." 
                        maxlength="20">
                 <div class="nickname-hint">
-                    ※ ニックネームは任意です。未入力の場合は「匿名ユーザー」として記録されます。
+                    ※ 架空の名前です。本名や個人を特定できる情報は入力しないでください。<br>
+                    ※ 未入力の場合は「匿名ユーザー」として記録されます。
                 </div>
             </div>
 
             <div class="section">
-                <div class="section-title">Basic Profile</div>
+                <div class="section-title">Basic Profile（架空設定）</div>
                 <div class="form-grid">
                     <div class="form-group">
                         <label>年齢</label>
@@ -600,7 +792,7 @@
                         <input type="number" id="height" value="160" min="140" max="180">
                     </div>
                     <div class="form-group">
-                        <label>居住地域</label>
+                        <label>居住地域（仮想）</label>
                         <select id="region">
                             <option value="tokyo">東京都</option>
                             <option value="osaka">大阪府</option>
@@ -613,10 +805,10 @@
             </div>
 
             <div class="section">
-                <div class="section-title">Physical Attributes</div>
+                <div class="section-title">Physical Attributes（架空設定）</div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>カップサイズ</label>
+                        <label>カップサイズ（仮想設定）</label>
                         <select id="cup">
                             <option value="1">A カップ</option>
                             <option value="2">B カップ</option>
@@ -629,7 +821,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>体型</label>
+                        <label>体型（仮想設定）</label>
                         <select id="bodyType">
                             <option value="slim">スレンダー</option>
                             <option value="normal" selected>標準</option>
@@ -639,7 +831,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>職業・バックグラウンド</label>
+                        <label>職業・バックグラウンド（仮想設定）</label>
                         <select id="profession">
                             <option value="1.0" selected>一般・学生</option>
                             <option value="1.2">OL・会社員</option>
@@ -652,7 +844,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>ルックス評価 (1-10)</label>
+                    <label>ルックス自己評価 (1-10)</label>
                     <div class="range-container">
                         <input type="range" id="looks" min="1" max="10" value="6">
                         <div class="range-labels">
@@ -666,10 +858,10 @@
             </div>
 
             <div class="section">
-                <div class="section-title">Experience & Status</div>
+                <div class="section-title">Experience & Status（架空設定）</div>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>AV経験</label>
+                        <label>仮想業界経験</label>
                         <select id="experience">
                             <option value="0" selected>未経験</option>
                             <option value="1">1-5作品</option>
@@ -701,8 +893,8 @@
             </div>
 
             <div class="section">
-                <div class="section-title">Basic Play Skills</div>
-                <div class="category-label">🌸 基本プレイ・恋人系</div>
+                <div class="section-title">Fantasy Skills（完全架空）</div>
+                <div class="category-label">🌸 基本スキル（フィクション）</div>
                 <div class="checkbox-grid">
                     <div class="checkbox-item">
                         <input type="checkbox" id="play_kiss" value="15">
@@ -738,7 +930,7 @@
                     </div>
                 </div>
 
-                <div class="category-label">💦 体質・反応系</div>
+                <div class="category-label">💦 体質・反応系（フィクション）</div>
                 <div class="checkbox-grid">
                     <div class="checkbox-item">
                         <input type="checkbox" id="body_squirt" value="50">
@@ -766,7 +958,7 @@
                     </div>
                 </div>
 
-                <div class="category-label">✨ 特殊スキル・才能</div>
+                <div class="category-label">✨ 特殊スキル・才能（フィクション）</div>
                 <div class="checkbox-grid">
                     <div class="checkbox-item">
                         <input type="checkbox" id="skill_flexible" value="30">
@@ -796,8 +988,8 @@
             </div>
 
             <div class="section">
-                <div class="section-title hard">Hard Play & Fetish</div>
-                <div class="category-label hard">🔥 ハードプレイ</div>
+                <div class="section-title hard">Advanced Fantasy Skills（完全架空）</div>
+                <div class="category-label hard">🔥 上級スキル（フィクション）</div>
                 <div class="checkbox-grid">
                     <div class="checkbox-item hard">
                         <input type="checkbox" id="hard_anal" value="100">
@@ -833,7 +1025,7 @@
                     </div>
                 </div>
 
-                <div class="category-label">🌟 フェチ・外見特徴</div>
+                <div class="category-label">🌟 フェチ・外見特徴（架空設定）</div>
                 <div class="checkbox-grid">
                     <div class="checkbox-item">
                         <input type="checkbox" id="feature_cosplay" value="30">
@@ -871,40 +1063,110 @@
             </div>
 
             <button class="assessment-btn" onclick="startAssessment()">
-                査定を開始する
+                架空診断を開始する
             </button>
         </div>
 
         <div class="result-section" id="resultSection">
             <div class="result-nickname" id="resultNickname"></div>
-            <div class="result-label">Estimated Fee Per Title</div>
+            <div class="result-label">Fantasy Market Value（完全架空の数値）</div>
             <div class="result-amount" id="finalAmount">¥0</div>
-            <div class="result-rank" id="marketRank">Market Rank: C</div>
+            <div class="result-rank" id="marketRank">Fantasy Rank: C</div>
             
             <div class="result-breakdown" id="breakdown">
                 <!-- JavaScript で動的生成 -->
             </div>
+
+            <div class="affiliate-disclosure">
+                <strong>📢 広告・アフィリエイト開示</strong><br>
+                当サイトでは、診断結果に基づき美容・自分磨きに関連するサービスをご紹介する場合があります。
+                これらのリンクから申し込みがあった場合、当サイトは紹介料を受け取ることがありますが、
+                紹介するサービスの選定は中立的な基準に基づいており、紹介料の有無が推奨内容に影響することはありません。
+                すべて任意のご利用であり、当サイトは紹介先サービスの内容について保証いたしません。
+            </div>
             
             <button class="assessment-btn" onclick="resetAssessment()" style="background: #6c757d; margin-top: 30px;">
-                再査定する
+                再診断する
             </button>
         </div>
 
         <div class="disclaimer">
-            <strong>免責事項:</strong> このツールは完全にフィクションであり、エンターテインメント目的でのみ作成されています。実際のAV業界のデータや統計に基づくものではなく、表示される金額は架空の数値です。18歳未満の方の利用を禁止します。実際の契約や出演を推奨・保証するものではありません。入力されたデータは算出目的でのみ使用され、データ収集、分析には使用されません。
+            <h4>⚠️ 重要な免責事項</h4>
+            
+            <p><strong>【本サービスの性質】</strong><br>
+            このツールは完全にフィクションのエンターテインメント・診断ゲームです。
+            表示される金額・ランク・評価は架空のアルゴリズムによる創作数値であり、実在する業界データ・報酬体系・契約条件とは一切関係ありません。</p>
+            
+            <p><strong>【職業紹介・斡旋ではありません】</strong><br>
+            当サイトは、いかなる業界・職種への就業斡旋・紹介・勧誘・仲介を行うものではありません。
+            実際の契約・出演・就業を推奨・保証・仲介するものでは一切ありません。
+            すべての情報は、架空の世界における仮想的なシミュレーションです。</p>
+            
+            <p><strong>【利用制限】</strong><br>
+            18歳未満の方、高校在学中の方の利用を固く禁止します。
+            本サイトは成人向けのエンターテインメントコンテンツを含みます。</p>
+            
+            <p><strong>【データ取扱い】</strong><br>
+            入力データはサービス改善・統計分析目的で匿名記録される場合があります。
+            個人を特定できる情報は入力しないでください。
+            詳しくは<a href="privacy.html" style="color: var(--accent-gold);">プライバシーポリシー</a>をご確認ください。</p>
+            
+            <p><strong>【アフィリエイト・広告について】</strong><br>
+            当サイトは、Amazon.co.jpアソシエイト、A8.net等のアフィリエイトプログラムに参加しています。
+            診断結果に基づき関連商品・サービスをご紹介する場合がありますが、
+            これらは完全に任意であり、当サイトは紹介先サービスの内容について保証いたしません。</p>
+            
+            <p style="margin-top: 15px; font-size: 10px; color: #6c757d;">
+            最終更新日: 2026年2月22日 | 
+            運営者: NOT VOID | 
+        
+            </p>
+        </div>
+
+        <div class="footer-links">
+            <a href="privacy.html" target="_blank">プライバシーポリシー</a> | 
+            <a href="mailto:your-email@example.com">お問い合わせ</a> | 
+            <a href="#" onclick="alert('このサイトは完全なフィクションです。実在する業界とは一切関係ありません。'); return false;">利用規約</a>
         </div>
     </div>
 
     <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-text" id="loadingText">DATABASE CONNECTION...</div>
+        <div class="loading-text" id="loadingText">ANALYZING FANTASY DATA...</div>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
     </div>
 
     <script>
-        // ⚠️ 重要: ここにGoogle Apps ScriptのウェブアプリURLを設定してください
+        // Google Apps ScriptのURL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKfrt3k2tH4eSajMr3JhH_hebvZoW70B75r0GBe06ViKqOGxZBtf8FV3ErjBTd5JrP/exec';
+
+        // ページ読み込み時に年齢確認（厳格な実施）
+        window.addEventListener('DOMContentLoaded', function() {
+            if (!sessionStorage.getItem('ageVerified')) {
+                showAgeVerification();
+            }
+        });
+
+        function showAgeVerification() {
+            const gate = document.getElementById('ageGate');
+            if (gate) {
+                gate.style.display = 'flex';
+            }
+        }
+
+        function confirmAge(isAdult) {
+            if (isAdult) {
+                sessionStorage.setItem('ageVerified', 'true');
+                const gate = document.getElementById('ageGate');
+                if (gate) {
+                    gate.style.display = 'none';
+                }
+            } else {
+                alert('申し訳ございませんが、18歳未満・高校在学中の方はご利用いただけません。');
+                window.location.href = 'https://www.google.com';
+            }
+        }
 
         function startAssessment() {
             const age = document.getElementById('age').value;
@@ -913,7 +1175,33 @@
                 return;
             }
 
+            // 入力値検証
+            if (!validateInput()) return;
+
             showLoadingScreen();
+        }
+
+        function validateInput() {
+            const age = parseInt(document.getElementById('age').value);
+            const height = parseInt(document.getElementById('height').value);
+            
+            if (age < 18 || age > 100) {
+                alert('年齢の入力値が不正です（18-100歳）。');
+                return false;
+            }
+            
+            if (height < 140 || height > 200) {
+                alert('身長の入力値が不正です（140-200cm）。');
+                return false;
+            }
+            
+            const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            if (checkedCount > 25) {
+                alert('選択項目が多すぎます。現実的な範囲で選択してください。');
+                return false;
+            }
+            
+            return true;
         }
 
         function showLoadingScreen() {
@@ -922,12 +1210,12 @@
             const progressFill = document.getElementById('progressFill');
 
             const messages = [
-                "DATABASE CONNECTION...",
-                "ANALYZING PHYSICAL DATA...",
-                "PROCESSING SKILL MATRIX...",
-                "CALCULATING MARKET VALUE...",
-                "SAVING DATA TO DATABASE...",
-                "FINALIZING ASSESSMENT..."
+                "CONNECTING TO FANTASY DATABASE...",
+                "ANALYZING VIRTUAL PROFILE...",
+                "PROCESSING FICTIONAL SKILLS...",
+                "CALCULATING IMAGINARY VALUE...",
+                "SAVING ANONYMOUS DATA...",
+                "FINALIZING ENTERTAINMENT RESULT..."
             ];
 
             overlay.style.display = 'flex';
@@ -951,20 +1239,17 @@
         }
 
         function collectFormData() {
-            // ニックネーム取得（未入力の場合は「匿名ユーザー」）
             let nickname = document.getElementById('nickname').value.trim();
             if (!nickname) {
                 nickname = '匿名ユーザー';
             }
 
-            // セレクトボックスのテキスト（表示名）を取得するヘルパー関数
             function getSelectText(id) {
                 const element = document.getElementById(id);
                 if (element.selectedIndex === -1) return "";
                 return element.options[element.selectedIndex].text;
             }
 
-            // ルックスの数値をテキストに変換
             const looksValue = document.getElementById('looks').value;
             let looksText = looksValue;
             if (looksValue <= 3) looksText += " (普通)";
@@ -973,12 +1258,10 @@
             else if (looksValue <= 9) looksText += " (美人)";
             else looksText += " (超美人)";
 
-            // チェックボックスのラベル（表示名）を収集
             const skillLabels = [];
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach(cb => {
                 if (cb.checked) {
-                    // 対応するlabelタグのテキストを取得
                     const label = document.querySelector(`label[for="${cb.id}"]`);
                     if (label) {
                         skillLabels.push(label.innerText);
@@ -986,31 +1269,28 @@
                 }
             });
 
-            // Googleスプレッドシート送信用のデータ（日本語表記）
             const data = {
                 timestamp: new Date().toISOString(),
                 nickname: nickname,
                 age: document.getElementById('age').value,
                 height: document.getElementById('height').value,
-                region: getSelectText('region'),           // 日本語（例：東京都）
-                cup: getSelectText('cup'),                 // 日本語（例：C カップ）
-                bodyType: getSelectText('bodyType'),       // 日本語（例：標準）
-                profession: getSelectText('profession'),   // 日本語（例：一般・学生）
-                looks: looksText,                          // 日本語（例：6 (可愛い)）
-                experience: getSelectText('experience'),   // 日本語（例：未経験）
-                experienceCount: getSelectText('experienceCount'), // 日本語（例：一般的）
-                followers: getSelectText('followers'),     // 日本語（例：1,000-10,000人）
-                skillsString: skillLabels.join(', ')       // 日本語（例：ディープキス得意, 潮吹き可能）
+                region: getSelectText('region'),
+                cup: getSelectText('cup'),
+                bodyType: getSelectText('bodyType'),
+                profession: getSelectText('profession'),
+                looks: looksText,
+                experience: getSelectText('experience'),
+                experienceCount: getSelectText('experienceCount'),
+                followers: getSelectText('followers'),
+                skillsString: skillLabels.join(', ')
             };
 
             return data;
         }
 
         function sendDataToGoogle(data, finalPrice) {
-            // データに最終価格を追加
             data.finalPrice = finalPrice;
             
-            // Google Apps Scriptに送信（URLが設定されている場合のみ）
             if (GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
@@ -1026,10 +1306,8 @@
         }
 
         function calculateAndShowResult() {
-            // スプレッドシート送信用データを作成（日本語化済み）
             const formData = collectFormData();
 
-            // 計算用にはDOMから直接数値・コード値を取得（既存ロジック維持）
             const age = parseInt(document.getElementById('age').value);
             const height = parseInt(document.getElementById('height').value);
             const cup = parseInt(document.getElementById('cup').value);
@@ -1040,24 +1318,18 @@
             const followers = parseInt(document.getElementById('followers').value);
             const profession = parseFloat(document.getElementById('profession').value);
 
-            // 基本料金設定
-            let basePrice = 300000; // 30万円
+            let basePrice = 300000;
 
-            // 年齢補正
             let ageBonus = 0;
             if (age >= 18 && age <= 20) ageBonus = 200000;
             else if (age <= 23) ageBonus = 150000;
             else if (age <= 26) ageBonus = 100000;
             else if (age <= 30) ageBonus = 50000;
-            else if (age >= 35) ageBonus = 30000; // 熟女需要
+            else if (age >= 35) ageBonus = 30000;
 
-            // ルックス補正（重要度高）
             const looksBonus = (looks - 5) * 100000;
-
-            // カップサイズ補正
             const cupBonus = cup * 40000;
 
-            // 体型補正
             let bodyBonus = 0;
             switch(bodyType) {
                 case 'slim': bodyBonus = 60000; break;
@@ -1067,7 +1339,6 @@
                 default: bodyBonus = 30000;
             }
 
-            // 経験補正
             let expBonus = 0;
             switch(experience) {
                 case 1: expBonus = 60000; break;
@@ -1075,16 +1346,10 @@
                 case 3: expBonus = 180000; break;
             }
 
-            // 基本計算
             let totalPrice = basePrice + ageBonus + looksBonus + cupBonus + bodyBonus + expBonus;
-
-            // 乗数補正
             totalPrice = totalPrice * experienceCount * profession;
-
-            // SNSフォロワー加算
             totalPrice += (followers * 1000);
 
-            // スキルチェックボックスの加算
             let skillBonus = 0;
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach(cb => {
@@ -1094,21 +1359,16 @@
             });
 
             totalPrice += skillBonus;
-
-            // 最終調整
             totalPrice = Math.max(100000, Math.round(totalPrice / 10000) * 10000);
 
-            // ランク判定
             let rank = "C - Standard";
             if (totalPrice >= 600000) rank = "B - Popular";
             if (totalPrice >= 1200000) rank = "A - Premium";
             if (totalPrice >= 2500000) rank = "S - Elite";
             if (totalPrice >= 5000000) rank = "SS - Legend";
 
-            // Googleにデータ送信（日本語化されたformDataと計算結果を送信）
             sendDataToGoogle(formData, totalPrice);
 
-            // 結果表示
             displayResult(formData.nickname, totalPrice, rank, {
                 age: ageBonus,
                 looks: looksBonus,
@@ -1126,7 +1386,6 @@
             const marketRank = document.getElementById('marketRank');
             const breakdownDiv = document.getElementById('breakdown');
 
-            // ニックネーム表示
             resultNickname.textContent = nickname;
 
             let currentAmount = 0;
@@ -1141,39 +1400,39 @@
                 resultAmount.textContent = '¥' + currentAmount.toLocaleString();
             }, 30);
 
-            marketRank.textContent = 'Market Rank: ' + rank;
+            marketRank.textContent = 'Fantasy Rank: ' + rank;
 
             breakdownDiv.innerHTML = `
                 <div class="breakdown-item">
-                    <div class="breakdown-label">年齢ボーナス</div>
+                    <div class="breakdown-label">年齢ボーナス（架空）</div>
                     <div class="breakdown-value">¥${breakdown.age.toLocaleString()}</div>
                 </div>
                 <div class="breakdown-item">
-                    <div class="breakdown-label">ルックス評価</div>
+                    <div class="breakdown-label">ルックス評価（架空）</div>
                     <div class="breakdown-value">${breakdown.looks >= 0 ? '+' : ''}¥${breakdown.looks.toLocaleString()}</div>
                 </div>
                 <div class="breakdown-item">
-                    <div class="breakdown-label">バスト・体型</div>
+                    <div class="breakdown-label">バスト・体型（架空）</div>
                     <div class="breakdown-value">¥${(breakdown.cup + breakdown.body).toLocaleString()}</div>
                 </div>
                 <div class="breakdown-item">
-                    <div class="breakdown-label">経験・実績</div>
+                    <div class="breakdown-label">経験・実績（架空）</div>
                     <div class="breakdown-value">¥${breakdown.experience.toLocaleString()}</div>
                 </div>
                 <div class="breakdown-item">
-                    <div class="breakdown-label">SNS影響力</div>
+                    <div class="breakdown-label">SNS影響力（架空）</div>
                     <div class="breakdown-value">¥${breakdown.followers.toLocaleString()}</div>
                 </div>
                 <div class="breakdown-item">
-                    <div class="breakdown-label">スキル・特技</div>
+                    <div class="breakdown-label">スキル・特技（架空）</div>
                     <div class="breakdown-value">¥${breakdown.skills.toLocaleString()}</div>
                 </div>
                 <div class="breakdown-item">
-                    <div class="breakdown-label">年間推定収入<br>(月2本×12ヶ月)</div>
+                    <div class="breakdown-label">年間推定（架空・月2本×12ヶ月）</div>
                     <div class="breakdown-value">¥${(price * 24).toLocaleString()}</div>
                 </div>
                 <div class="breakdown-item">
-                    <div class="breakdown-label">時給換算<br>(8時間撮影)</div>
+                    <div class="breakdown-label">時給換算（架空・8時間想定）</div>
                     <div class="breakdown-value">¥${Math.round(price / 8).toLocaleString()}</div>
                 </div>
             `;
