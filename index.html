@@ -96,6 +96,69 @@
             padding: 30px;
         }
 
+        .nickname-section {
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.08) 0%, 
+                rgba(255, 107, 157, 0.08) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .nickname-section::before {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--card-bg);
+            padding: 0 10px;
+            font-size: 16px;
+        }
+
+        .nickname-label {
+            font-size: 13px;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .nickname-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--input-bg);
+            border: 2px solid var(--accent-gold);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .nickname-input::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .nickname-input:focus {
+            outline: none;
+            border-color: var(--accent-rose);
+            box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.2);
+            background: rgba(33, 37, 41, 0.9);
+        }
+
+        .nickname-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
         .section {
             margin-bottom: 35px;
         }
@@ -370,6 +433,22 @@
             border-top: 1px solid var(--border-color);
         }
 
+        .result-nickname {
+            font-size: 18px;
+            color: var(--accent-rose);
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .result-nickname::before {
+            content: '✨ ';
+        }
+
+        .result-nickname::after {
+            content: ' さんの査定結果';
+        }
+
         .result-label {
             font-size: 12px;
             color: var(--text-secondary);
@@ -471,6 +550,15 @@
             .form-content {
                 padding: 20px;
             }
+
+            .nickname-section {
+                padding: 20px;
+            }
+
+            .nickname-input {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
             
             .form-grid {
                 grid-template-columns: 1fr;
@@ -499,7 +587,19 @@
 
         <div class="form-content" id="formContent">
             <div class="data-notice">
-                📊 <strong>データ収集について:</strong> 入力されたデータは統計分析のため匿名で記録されます。個人を特定する情報は一切収集されません。
+                📊 <strong>データ収集について:</strong> 入力されたデータは統計分析のため匿名で記録されます。ニックネームは任意ですが記録されます。本名や個人を特定できる情報は入力しないでください。
+            </div>
+
+            <div class="nickname-section">
+                <div class="nickname-label">Your Stage Name</div>
+                <input type="text" 
+                       id="nickname" 
+                       class="nickname-input" 
+                       placeholder="例: さくら、あいり、まお..." 
+                       maxlength="20">
+                <div class="nickname-hint">
+                    ※ ニックネームは任意です。未入力の場合は「匿名ユーザー」として記録されます。
+                </div>
             </div>
 
             <div class="section">
@@ -790,6 +890,7 @@
         </div>
 
         <div class="result-section" id="resultSection">
+            <div class="result-nickname" id="resultNickname"></div>
             <div class="result-label">Estimated Fee Per Title</div>
             <div class="result-amount" id="finalAmount">¥0</div>
             <div class="result-rank" id="marketRank">Market Rank: C</div>
@@ -817,7 +918,7 @@
 
     <script>
         // ⚠️ 重要: ここにGoogle Apps ScriptのウェブアプリURLを設定してください
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKfrt3k2tH4eSajMr3JhH_hebvZoW70B75r0GBe06ViKqOGxZBtf8FV3ErjBTd5JrP/exec';
+        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
 
         function startAssessment() {
             const age = document.getElementById('age').value;
@@ -864,8 +965,15 @@
         }
 
         function collectFormData() {
+            // ニックネーム取得（未入力の場合は「匿名ユーザー」）
+            let nickname = document.getElementById('nickname').value.trim();
+            if (!nickname) {
+                nickname = '匿名ユーザー';
+            }
+
             const data = {
                 timestamp: new Date().toISOString(),
+                nickname: nickname,
                 age: document.getElementById('age').value,
                 height: document.getElementById('height').value,
                 region: document.getElementById('region').value,
@@ -993,7 +1101,7 @@
             sendDataToGoogle(formData, totalPrice);
 
             // 結果表示
-            displayResult(totalPrice, rank, {
+            displayResult(formData.nickname, totalPrice, rank, {
                 age: ageBonus,
                 looks: looksBonus,
                 cup: cupBonus,
@@ -1004,10 +1112,14 @@
             });
         }
 
-        function displayResult(price, rank, breakdown) {
+        function displayResult(nickname, price, rank, breakdown) {
+            const resultNickname = document.getElementById('resultNickname');
             const resultAmount = document.getElementById('finalAmount');
             const marketRank = document.getElementById('marketRank');
             const breakdownDiv = document.getElementById('breakdown');
+
+            // ニックネーム表示
+            resultNickname.textContent = nickname;
 
             let currentAmount = 0;
             const increment = Math.ceil(price / 50);
