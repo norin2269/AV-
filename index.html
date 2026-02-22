@@ -513,17 +513,6 @@
             color: var(--accent-rose);
         }
 
-        .data-notice {
-            background: rgba(52, 152, 219, 0.1);
-            border: 1px solid rgba(52, 152, 219, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 11px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
         .disclaimer {
             padding: 20px 30px;
             background: rgba(255, 193, 7, 0.05);
@@ -585,12 +574,10 @@
             <div class="subtitle">出演料査定システム Professional Edition</div>
         </header>
 
-       <div class="form-content" id="formContent">
-           
+        <div class="form-content" id="formContent">
             
-
             <div class="nickname-section">
-        <div class="nickname-label">Your Stage Name</div>
+                <div class="nickname-label">Your Stage Name</div>
                 <input type="text" 
                        id="nickname" 
                        class="nickname-input" 
@@ -904,7 +891,10 @@
         </div>
 
         <div class="disclaimer">
-           <strong>免責事項:</strong> このツールは完全にフィクションであり、エンターテインメント目的でのみ作成されています。入力されたデータはサービス改善のため匿名で記録される場合があります。個人を特定できる情報は入力しないでください。18歳未満の方の利用を禁止します。
+            <strong>免責事項:</strong> このツールは完全にフィクションであり、エンターテインメント目的でのみ作成されています。実際のAV業界のデータや統計に基づくものではなく、表示される金額は架空の数値です。18歳未満の方の利用を禁止します。実際の契約や出演を推奨・保証するものではありません。入力されたデータは算出目的でのみ使用され、データ収集、分析には使用されません。
+        </div>
+    </div>
+
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-text" id="loadingText">DATABASE CONNECTION...</div>
         <div class="progress-bar">
@@ -967,29 +957,51 @@
                 nickname = '匿名ユーザー';
             }
 
+            // セレクトボックスのテキスト（表示名）を取得するヘルパー関数
+            function getSelectText(id) {
+                const element = document.getElementById(id);
+                if (element.selectedIndex === -1) return "";
+                return element.options[element.selectedIndex].text;
+            }
+
+            // ルックスの数値をテキストに変換
+            const looksValue = document.getElementById('looks').value;
+            let looksText = looksValue;
+            if (looksValue <= 3) looksText += " (普通)";
+            else if (looksValue <= 5) looksText += " (まあまあ)";
+            else if (looksValue <= 7) looksText += " (可愛い)";
+            else if (looksValue <= 9) looksText += " (美人)";
+            else looksText += " (超美人)";
+
+            // チェックボックスのラベル（表示名）を収集
+            const skillLabels = [];
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    // 対応するlabelタグのテキストを取得
+                    const label = document.querySelector(`label[for="${cb.id}"]`);
+                    if (label) {
+                        skillLabels.push(label.innerText);
+                    }
+                }
+            });
+
+            // Googleスプレッドシート送信用のデータ（日本語表記）
             const data = {
                 timestamp: new Date().toISOString(),
                 nickname: nickname,
                 age: document.getElementById('age').value,
                 height: document.getElementById('height').value,
-                region: document.getElementById('region').value,
-                cup: document.getElementById('cup').value,
-                bodyType: document.getElementById('bodyType').value,
-                profession: document.getElementById('profession').value,
-                looks: document.getElementById('looks').value,
-                experience: document.getElementById('experience').value,
-                experienceCount: document.getElementById('experienceCount').value,
-                followers: document.getElementById('followers').value,
-                skills: []
+                region: getSelectText('region'),           // 日本語（例：東京都）
+                cup: getSelectText('cup'),                 // 日本語（例：C カップ）
+                bodyType: getSelectText('bodyType'),       // 日本語（例：標準）
+                profession: getSelectText('profession'),   // 日本語（例：一般・学生）
+                looks: looksText,                          // 日本語（例：6 (可愛い)）
+                experience: getSelectText('experience'),   // 日本語（例：未経験）
+                experienceCount: getSelectText('experienceCount'), // 日本語（例：一般的）
+                followers: getSelectText('followers'),     // 日本語（例：1,000-10,000人）
+                skillsString: skillLabels.join(', ')       // 日本語（例：ディープキス得意, 潮吹き可能）
             };
-
-            // チェックボックスの収集
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(cb => {
-                if (cb.checked) {
-                    data.skills.push(cb.id);
-                }
-            });
 
             return data;
         }
@@ -997,8 +1009,7 @@
         function sendDataToGoogle(data, finalPrice) {
             // データに最終価格を追加
             data.finalPrice = finalPrice;
-            data.skillsString = data.skills.join(',');
-
+            
             // Google Apps Scriptに送信（URLが設定されている場合のみ）
             if (GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
                 fetch(GOOGLE_SCRIPT_URL, {
@@ -1015,9 +1026,10 @@
         }
 
         function calculateAndShowResult() {
+            // スプレッドシート送信用データを作成（日本語化済み）
             const formData = collectFormData();
 
-            // 基本データ取得
+            // 計算用にはDOMから直接数値・コード値を取得（既存ロジック維持）
             const age = parseInt(document.getElementById('age').value);
             const height = parseInt(document.getElementById('height').value);
             const cup = parseInt(document.getElementById('cup').value);
@@ -1093,7 +1105,7 @@
             if (totalPrice >= 2500000) rank = "S - Elite";
             if (totalPrice >= 5000000) rank = "SS - Legend";
 
-            // Googleにデータ送信
+            // Googleにデータ送信（日本語化されたformDataと計算結果を送信）
             sendDataToGoogle(formData, totalPrice);
 
             // 結果表示
