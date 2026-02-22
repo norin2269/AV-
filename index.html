@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>AV出演料チェッカー｜診断モード</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+<h1>AV出演料チェッカー</h1>
+<p class="subtitle">― 出演条件から相場感を診断 ―</p>
+
+<section class="card">
+<h2>基本情報</h2>
+<label>年齢 <input type="number" id="age"></label>
+<label>身長(cm) <input type="number" id="height"></label>
+<label>体重(kg) <input type="number" id="weight"></label>
+<label>B / W / H <input type="text" id="size" placeholder="例: 88 / 60 / 90"></label>
+</section>
+
+<section class="card">
+<h2>プレイ・演出条件</h2>
+
+<div class="category">
+<h3>基本・ソフト</h3>
+<div data-cat="soft"></div>
+</div>
+
+<div class="category">
+<h3>体位・シーン</h3>
+<div data-cat="scene"></div>
+</div>
+
+<div class="category">
+<h3>衣装・見せ方</h3>
+<div data-cat="costume"></div>
+</div>
+
+<div class="category">
+<h3>撮影・演出</h3>
+<div data-cat="direction"></div>
+</div>
+</section>
+
+<button onclick="calculate()">診断する</button>
+
+<section id="result" class="card result"></section>
+
+<p class="note">※ 本ツールはエンタメ目的の診断です。</p>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
